@@ -1,6 +1,7 @@
 import os
 import argparse
 import sqlite3
+import datetime
 
 from teller import pdf_processor
 from teller import db_manager
@@ -34,6 +35,10 @@ def main():
 
         print(f"Adding {len(to_add)} new transactions to db...")
         db_manager.add_to_db(db_conn, to_add)
+
+        all_trans = db_manager.get_existing_trans(db_conn)
+        for t in sorted(list(all_trans), key=lambda t: t.date):
+            print(f"{t.account_type.value},{t.date.strftime('%d/%m/%Y')},\"{t.description}\",{t.amount}")
 
 
 if __name__ == '__main__':
