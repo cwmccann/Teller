@@ -25,10 +25,9 @@ def main():
         except sqlite3.OperationalError:  # db exists
             pass
 
-
         print(f"Searching for pdfs in '{directory}'...")
-        found_trans = pdf_processor.get_transactions(directory) 
-        print(f"Found {len(found_trans)} transactions in pdf statements") 
+        found_trans = pdf_processor.get_transactions(directory)
+        print(f"Found {len(found_trans)} transactions in pdf statements")
 
         existing_trans = db_manager.get_existing_trans(db_conn)
         to_add = found_trans - existing_trans
